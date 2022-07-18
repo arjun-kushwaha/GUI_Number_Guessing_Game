@@ -4,63 +4,20 @@ from tkinter import messagebox as msg
 
 root = Tk()
 
-#title
-root.title("Number Guessing gmae ")
+#title for main page
+root.title("Number Guessing Game ")
 
-#icon
+#icon of game
 root.wm_iconbitmap('game.ico')
+
+# window size
 root.geometry('500x500')
 
-#non resizable
+#making non-resizable
 root.resizable(0,0)
+
+#background color
 root.configure(bg='#e3ebfa')
-
-#newGame function
-def playAgain():
-    global randomvalue
-    global count
-
-    #regenrate randomvalue
-    randomvalue = random.randint(1,100)
-
-    # re-starting count
-    count = 0
-
-    #making Entry widgets Empty by initializing ""
-    result.configure(text="") 
-    var.set("")   
-    #submit button normal
-    b1.config(state='normal')
-
-#function to check whether number is low or high or same to computer generated no.
-def getval():
-
-    #count number of attemption 
-    global count
-    count += 1
-
-    #checking whether input field is  empty or not
-    if var.get() != "":
-
-        #fetching value
-        guessnumber = int(var.get())
-
-        # checking user input value is equal to computer generated value or not 
-        if guessnumber == randomvalue:
-            result.configure(text=f" Number was {randomvalue} ! \n \n Congrates !! You Guessed in {count} times", fg = '#046e0c')
-            var.set("")
-
-            #submit button disable
-            b1.config(state='disabled')
-        
-        #showing hint whether guessing number is low or high
-        else:
-            if guessnumber < randomvalue:
-                result.configure(text="Too low ", fg = '#e00b87') 
-                var.set("")        
-            else:
-                result.configure(text="Too High ", fg = 'red') 
-                var.set("")  
 
 # settings new limits of upper and lower guess 
 def limit(w):
@@ -87,7 +44,51 @@ def limit(w):
 
     #destroying settings window
     w.destroy()
+    playAgain()
 
+
+def playAgain():
+    global randomvalue, count, n, m
+
+    #regenerating random value at custom upper and lower limits
+    randomvalue = random.randint(m,n)
+    count = 0
+
+    # removing hint too low/ too high
+    result.configure(text="") 
+
+    #initializing empty entry box
+    var.set("")   
+
+    #enable submit button
+    b1.config(state='normal')
+
+def getval():
+    global count
+    count += 1
+
+    #checking whether entry box is empty or not
+    if var.get() != "":
+
+        #fetching value from var
+        guessnumber = int(var.get())
+
+        # checking entered value matching or not
+        if guessnumber == randomvalue:
+            result.configure(text=f" Number was {randomvalue} ! \n \n Congrates !! You Guessed in {count} times", fg = '#046e0c')
+            var.set("")
+
+            # button disable 
+            b1.config(state='disabled')
+
+            # cheking hints for low or high number
+        else:
+            if guessnumber < randomvalue:
+                result.configure(text="Too low ", fg = '#e00b87') 
+                var.set("")        
+            else:
+                result.configure(text="Too High ", fg = 'red') 
+                var.set("")     
 def settings():
     global upper, lower
 
@@ -135,15 +136,13 @@ def settings():
     developer.place(x=10,y=250)
    
 n=m=0
-count = 0
 
 upper=StringVar()
 lower=StringVar()
 var = StringVar()
 
-#generating Random value
 randomvalue = random.randint(1,100)
-
+count = 0
 #home page 
 l1 = Label (text="Number Guessing Game ", font= "Arial 20 bold", fg = '#363369' , bg='#e3ebfa' )
 l1.pack(pady=30)
@@ -161,14 +160,16 @@ b1.pack()
 result = Label(text='',font= "Arial 15 bold " , bg='#e3ebfa' )
 result.pack(pady=20)
 
+#new game button
+b2 = Button(root,text='New Game',bg='red', fg='white', command=playAgain)
+b2.place(x=410,y=460)
+
 #settings button
 b3 = Button(root,text='Settings',bg='red', fg='white', command=settings)
 b3.place(x=430,y=10)
 
-
-
-#showing developer details
-developer = Label(text='Developed by:Arjun Kushwaha',font=" '' 8 italic",bg='#e3ebfa')
+#about developer
+developer = Label(text='Developed by:Arjun Kushwaha',font=" '' 9 italic",bg='#e3ebfa')
 developer.place(x=10,y=470)
 
 root.mainloop()
