@@ -14,6 +14,23 @@ root.geometry('500x500')
 root.resizable(0,0)
 root.configure(bg='#e3ebfa')
 
+#newGame function
+def playAgain():
+    global randomvalue
+    global count
+
+    #regenrate randomvalue
+    randomvalue = random.randint(1,100)
+
+    # re-starting count
+    count = 0
+
+    #making Entry widgets Empty by initializing ""
+    result.configure(text="") 
+    var.set("")   
+    #submit button normal
+    b1.config(state='normal')
+
 #function to check whether number is low or high or same to computer generated no.
 def getval():
 
@@ -31,6 +48,9 @@ def getval():
         if guessnumber == randomvalue:
             result.configure(text=f" Number was {randomvalue} ! \n \n Congrates !! You Guessed in {count} times", fg = '#046e0c')
             var.set("")
+
+            #submit button disable
+            b1.config(state='disabled')
         
         #showing hint whether guessing number is low or high
         else:
@@ -62,6 +82,10 @@ b1.pack()
 
 result = Label(text='',font= "Arial 15 bold " , bg='#e3ebfa' )
 result.pack(pady=20)
+
+#Adding newGame button
+b2 = Button(root,text='New Game',bg='red', fg='white', command=playAgain)
+b2.place(x=400,y=450)
 
 #showing developer details
 developer = Label(text='Developed by:Arjun Kushwaha',font=" '' 8 italic",bg='#e3ebfa')
