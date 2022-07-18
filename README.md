@@ -8,4 +8,4 @@ to computer generated number , game shows winning message with number of attempt
 #features 
 1-New Game - player can start a new game at any point. 
 
-2- settings - player can add a custom lower and upper range to generate a random number.
+2- settings - player can add a custom lower and upper range to generate a random number .
